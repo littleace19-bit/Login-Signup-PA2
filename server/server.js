@@ -69,6 +69,42 @@ app.post("/signup", async (req, res) => {
     }
 });
 
+// POST route for Login
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    // 1. Verify required fields are not empty
+    if (!username || !password) {
+        return res.status(400).json({ message: "Required information is missing" });
+    }
+
+    try {
+        const db = client.db("pa2");
+        const users = db.collection("users");
+
+        // 2. Search for the username in the database
+        const user = await users.findOne({ username: username });
+
+        // 3. If the user is not found, return an error
+        if (user === null) {
+            return res.status(401).json({ message: "Username does not exist" });
+        }
+
+        // 4. Compare the supplied password with the stored password
+        if (user.password !== password) {
+            return res.status(401).json({ message: "Incorrect password" });
+        }
+
+        // 5. If everything matches, return a success message
+        res.status(200).json({ message: "Login successful!" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+
 app.listen(9000, () => {
     console.log("Server running on port 9000");
 });
