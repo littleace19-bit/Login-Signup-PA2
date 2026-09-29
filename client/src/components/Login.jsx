@@ -12,7 +12,7 @@ function Login() {
         const loginData = { username, password };
 
         try {
-            // We will build this /login route on the Express server next
+            // Will build this /login route on the Express server next
             const response = await fetch("http://localhost:9000/login", {
                 method: "POST",
                 headers: {

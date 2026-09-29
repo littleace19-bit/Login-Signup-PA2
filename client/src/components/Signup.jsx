@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Signup() {
-    // These are "state" variables. They remember what the user types into each input box.
+    //  state variables. They remember what the user types into each input box.
     const [f_name, setFName] = useState("");
     const [l_name, setLName] = useState("");
     const [username, setUsername] = useState("");
@@ -10,11 +10,11 @@ function Signup() {
     // This state will hold success or error messages from the server later
     const [message, setMessage] = useState("");
 
-    // This function runs when the user clicks the submit button
+    // function runs when the user clicks the submit button
     async function handleSubmit(event) {
         event.preventDefault();
 
-        // Group all the user's input into a single object
+        // Group all the users input into a single object
         const newUserData = { f_name, l_name, username, password };
 
         try {
